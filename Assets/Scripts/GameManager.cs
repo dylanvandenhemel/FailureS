@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
 
+    [Header("Fade Animation")]
+    public GameObject fadeAnimCanvas;
+    public GameObject bedCanvas;
+
     [Header("Day Cycle")]
+    public TMP_Text dayNumberTXT;
+    private int dayNumber;
     public Image cycleImage;
     private int currentCycle;
     private Color morning = Color.white;
@@ -16,29 +23,74 @@ public class GameManager : MonoBehaviour
     private Color afternoon = Color.red;
     private Color night = Color.blue;
 
+
     private void OnEnable()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        FadeIn();
+        dayNumber++;
+        dayNumberTXT.text = "Day: " + dayNumber;
+    }
+
     public void DayStart()
     {
-        currentCycle = 0;
-        UpdateColorTemp();
+        bedCanvas.SetActive(false);
+        StartCoroutine(nextDay());
     }
 
     //after an action is done move to next time of day
     public void NextDayCycle()
     {
-        if(currentCycle < 3)
+        bedCanvas.SetActive(false);
+        if (currentCycle < 3)
         {
-            currentCycle++;
-            UpdateColorTemp();
+            StartCoroutine(nextCycle());
         }
         else
         {
             DayStart();
         }
+    }
+
+    IEnumerator nextCycle()
+    {
+        FadeOut();
+        PlayerStateMachine.instance.PlayerLock();
+        yield return new WaitForSeconds(1);
+        currentCycle++;
+        UpdateColorTemp();
+
+        FadeIn();
+        PlayerStateMachine.instance.PlayerFreeWill();
+    }
+
+    IEnumerator nextDay()
+    {
+        FadeOut();
+        PlayerStateMachine.instance.PlayerLock();
+        yield return new WaitForSeconds(2);
+        currentCycle = 0;
+        UpdateColorTemp();
+
+        dayNumber++;
+        dayNumberTXT.text = "Day: " + dayNumber;
+
+        FadeIn();
+        PlayerStateMachine.instance.PlayerFreeWill();
+    }
+
+    public void FadeIn()
+    {
+        fadeAnimCanvas.GetComponent<Animator>().SetTrigger("fadeIn");
+    }
+    public void FadeOut()
+    {
+        fadeAnimCanvas.GetComponent<Animator>().SetTrigger("fadeOut");
+
     }
 
     private void UpdateColorTemp()
@@ -60,6 +112,4 @@ public class GameManager : MonoBehaviour
             cycleImage.color = night;
         }
     }
-
-
 }
