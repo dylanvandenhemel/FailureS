@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     [Header("Fade Animation")]
-    public GameObject fadeAnimCanvas;
+    public Animator fadeAnim;
+    public Animator swipeAnim;
     public GameObject bedCanvas;
 
     [Header("Day Cycle")]
@@ -85,12 +86,19 @@ public class GameManager : MonoBehaviour
 
     public void FadeIn()
     {
-        fadeAnimCanvas.GetComponent<Animator>().SetTrigger("fadeIn");
+        fadeAnim.SetTrigger("fadeIn");
     }
     public void FadeOut()
     {
-        fadeAnimCanvas.GetComponent<Animator>().SetTrigger("fadeOut");
-
+        fadeAnim.SetTrigger("fadeOut");
+    }
+    public void SwipeOpen()
+    {
+        swipeAnim.SetTrigger("swipeOpen");
+    }
+    public void SwipeClose()
+    {
+        swipeAnim.SetTrigger("swipeClose");
     }
 
     private void UpdateColorTemp()

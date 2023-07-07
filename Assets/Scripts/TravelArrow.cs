@@ -35,7 +35,7 @@ public class TravelArrow : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     IEnumerator startTravel()
     {
-        //fade out or swipe 
+        GameManager.instance.SwipeClose();
         PlayerStateMachine.instance.PlayerLock();
         yield return new WaitForSeconds(0.5f);
         GameManager.instance.player.transform.position = teleportSpot.position;
@@ -45,7 +45,7 @@ public class TravelArrow : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     IEnumerator finishTravel()
     {
         yield return new WaitForSeconds(0.5f);
-        //fade in or swipe
+        GameManager.instance.SwipeOpen();
         PlayerStateMachine.instance.PlayerFreeWill();
     }
 }
