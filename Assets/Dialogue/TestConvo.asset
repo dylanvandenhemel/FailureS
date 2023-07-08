@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad1403d77aecdd45bf79f50248803d1, type: 3}
+  m_Name: TestConvo
+  m_EditorClassIdentifier: 
+  conversation:
+  - charName: Testing
+    speakerVal1: {fileID: 11400000, guid: 43232e4e259cbc44791e909d70ced8b2, type: 2}
+    speakerVal2: {fileID: 0}
+    numberofSpeakers: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - this is a test of dialogue
+    - make sure things work
+    - testing my boi
+  - charName: 
+    speakerVal1: {fileID: 11400000, guid: 43232e4e259cbc44791e909d70ced8b2, type: 2}
+    speakerVal2: {fileID: 0}
+    numberofSpeakers: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - this is a test of narratin
+    - testing narration
