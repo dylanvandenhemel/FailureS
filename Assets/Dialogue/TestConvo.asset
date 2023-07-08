@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conversation:
   - charName: Testing
-    speakerVal1: {fileID: 11400000, guid: 43232e4e259cbc44791e909d70ced8b2, type: 2}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
     speakerVal2: {fileID: 0}
     numberofSpeakers: 1
     speakerPosition1: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
     - make sure things work
     - testing my boi
   - charName: 
-    speakerVal1: {fileID: 11400000, guid: 43232e4e259cbc44791e909d70ced8b2, type: 2}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
     speakerVal2: {fileID: 0}
     numberofSpeakers: 1
     speakerPosition1: 1

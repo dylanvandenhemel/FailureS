@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84409f048fc010c49b7efa9491b5bd83, type: 3}
-  m_Name: Bob
+  m_Name: Virgin Man
   m_EditorClassIdentifier: 
   charNameColor: {r: 0.764151, g: 0.12339147, b: 0.06848521, a: 1}
   neutralImage: {fileID: 21300000, guid: 2a8bf227319d4421f91d9375e3ae59bf, type: 3}
