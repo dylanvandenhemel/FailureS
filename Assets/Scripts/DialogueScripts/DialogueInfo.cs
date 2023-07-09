@@ -13,17 +13,16 @@ public class DialogueInfo : ScriptableObject
 public struct Dialogue
 {
     public string charName;
+    public Sprite background;
     public SpeakerInfo speakerVal1;
     public SpeakerInfo speakerVal2;
-    [Range(1, 2)]public int numberofSpeakers;
+    [Range(1, 2)] public int currentSpeaker;
 
-
-    //does not apply if only one speaker
     public enum SpeakerPosition {Left, Center, Right};
     public SpeakerPosition speakerPosition1;
     public SpeakerPosition speakerPosition2;
 
-    public enum EmotionState { neutral, happy, flirty, angry };
+    public enum EmotionState { neutral, happy, angry, lewd};
     public EmotionState emotionState1;
     public EmotionState emotionState2;
 

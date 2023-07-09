@@ -18,7 +18,8 @@ public class DialogueManager : MonoBehaviour
 
     //canvas and parts
     public GameObject dialogueCanvas;
-    //public Image background;
+    public Transform characterImageGroup;
+    public Image background;
 
     //text
     public TMP_Text nameText;
@@ -35,6 +36,9 @@ public class DialogueManager : MonoBehaviour
     public Transform portraitCenter;
     public Transform portraitLeft;
     public Transform portraitRight;
+
+    private GameObject speaker1Images;
+    private GameObject speaker2Images;
 
     //skip toggle
     bool bSkipActive;
@@ -85,6 +89,9 @@ public class DialogueManager : MonoBehaviour
         pActions.PlayerActions.Mouse1.started += NextLineButton;
         pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
+
+        ManageSpeakerImages();
+        ChangeBackground();
 
         //fills sb with the name and replaces it with the saved player name
         if (dialogue.conversation[iName].charName == "")
@@ -187,6 +194,134 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("off");
         bSkipActive = false;
+    }
+
+    private void ManageSpeakerImages()
+    {
+        //I know this is not optimal but It works and I don't have performance issues
+        if(speaker1Images != null)
+        {
+            Destroy(speaker1Images);
+        }
+        if(dialogueVal.conversation[iName].speakerVal1 != null)
+        {
+            speaker1Images = Instantiate(dialogueVal.conversation[iName].speakerVal1.speakerImages, characterImageGroup);
+            switch (dialogueVal.conversation[iName].speakerPosition1)
+            {
+                case Dialogue.SpeakerPosition.Center:
+                    speaker1Images.transform.position = portraitCenter.position;
+                    break;
+
+                case Dialogue.SpeakerPosition.Left:
+                    speaker1Images.transform.position = portraitLeft.position;
+                    break;
+
+                case Dialogue.SpeakerPosition.Right:
+                    speaker1Images.transform.position = portraitRight.position;
+                    break;
+
+            }
+
+            switch (dialogueVal.conversation[iName].emotionState1)
+            {
+                case Dialogue.EmotionState.neutral:
+                    speaker1Images.GetComponent<SpeakerImageHolder>().SwitchImageNeutral();
+                    break;
+
+                case Dialogue.EmotionState.happy:
+                    speaker1Images.GetComponent<SpeakerImageHolder>().SwitchImageHappy();
+                    break;
+
+                case Dialogue.EmotionState.angry:
+                    speaker1Images.GetComponent<SpeakerImageHolder>().SwitchImageAngry();
+                    break;
+
+                case Dialogue.EmotionState.lewd:
+                    speaker1Images.GetComponent<SpeakerImageHolder>().SwitchImageLewd();
+                    break;
+
+            }
+
+            //fades char a little if not the main speaker
+            if(dialogueVal.conversation[iName].currentSpeaker == 1)
+            {
+                speaker1Images.GetComponent<SpeakerImageHolder>().MainSpeaker();
+            }
+            else
+            {
+                speaker1Images.GetComponent<SpeakerImageHolder>().NotSpeaker();
+            }
+        }
+
+        //I know this is not optimal but It works and I don't have performance issues
+        if (speaker2Images != null)
+        {
+            Destroy(speaker2Images);
+        }
+        if (dialogueVal.conversation[iName].speakerVal2 != null)
+        {
+            speaker2Images = Instantiate(dialogueVal.conversation[iName].speakerVal2.speakerImages, characterImageGroup);
+            switch (dialogueVal.conversation[iName].speakerPosition2)
+            {
+                case Dialogue.SpeakerPosition.Center:
+                    speaker2Images.transform.position = portraitCenter.position;
+                    break;
+
+                case Dialogue.SpeakerPosition.Left:
+                    speaker2Images.transform.position = portraitLeft.position;
+                    break;
+
+                case Dialogue.SpeakerPosition.Right:
+                    speaker2Images.transform.position = portraitRight.position;
+                    break;
+
+            }
+
+            switch (dialogueVal.conversation[iName].emotionState2)
+            {
+                case Dialogue.EmotionState.neutral:
+                    speaker2Images.GetComponent<SpeakerImageHolder>().SwitchImageNeutral();
+                    break;
+
+                case Dialogue.EmotionState.happy:
+                    speaker2Images.GetComponent<SpeakerImageHolder>().SwitchImageHappy();
+                    break;
+
+                case Dialogue.EmotionState.angry:
+                    speaker2Images.GetComponent<SpeakerImageHolder>().SwitchImageAngry();
+                    break;
+
+                case Dialogue.EmotionState.lewd:
+                    speaker2Images.GetComponent<SpeakerImageHolder>().SwitchImageLewd();
+                    break;
+
+            }
+
+            //fades char a little if not the main speaker
+            if (dialogueVal.conversation[iName].currentSpeaker == 2)
+            {
+                speaker2Images.GetComponent<SpeakerImageHolder>().MainSpeaker();
+            }
+            else
+            {
+                speaker2Images.GetComponent<SpeakerImageHolder>().NotSpeaker();
+            }
+        }
+    }
+    private void ChangeBackground()
+    {
+        if(dialogueVal.conversation[iName].background != null)
+        {
+            //sets background to plane white to display image properly
+            background.color = new Color(255, 255, 255, 1);
+            background.sprite = dialogueVal.conversation[iName].background;
+        }
+        else
+        {
+            //sets background to a faded dark shade to hide scene a little
+            background.sprite = null;
+            background.color = new Color(0, 0, 0, 0.3f);
+        }
     }
 
     private void EndDialogue()

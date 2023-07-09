@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84409f048fc010c49b7efa9491b5bd83, type: 3}
-  m_Name: Succu
+  m_Name: Teacher
   m_EditorClassIdentifier: 
-  speakerImages: {fileID: 1355604344086698429, guid: 82ab782f9451aa04caaa8000bd0675ca, type: 3}
+  speakerImages: {fileID: 4877533498065686304, guid: 71c5bf1cff896b0479a5be737bbc9608, type: 3}

@@ -13,26 +13,36 @@ MonoBehaviour:
   m_Name: TestConvo
   m_EditorClassIdentifier: 
   conversation:
-  - charName: Testing
+  - charName: Succi
+    background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    numberofSpeakers: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
+    speakerVal2: {fileID: 11400000, guid: f39df20b6df4f624d80db788b8dc6d61, type: 2}
+    currentSpeaker: 1
+    speakerPosition1: 0
+    speakerPosition2: 2
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - this is a test of dialogue
-    - make sure things work
-    - testing my boi
-  - charName: 
+    - testing primary speaker
+  - charName: Teacher
+    background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    numberofSpeakers: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
+    speakerVal2: {fileID: 11400000, guid: f39df20b6df4f624d80db788b8dc6d61, type: 2}
+    currentSpeaker: 2
+    speakerPosition1: 0
+    speakerPosition2: 2
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - this is a test of narratin
-    - testing narration
+    - testing primary speaker
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 11400000, guid: f39df20b6df4f624d80db788b8dc6d61, type: 2}
+    currentSpeaker: 1
+    speakerPosition1: 0
+    speakerPosition2: 2
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - testing primary speaker
