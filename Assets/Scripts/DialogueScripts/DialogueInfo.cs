@@ -26,6 +26,10 @@ public struct Dialogue
     public EmotionState emotionState1;
     public EmotionState emotionState2;
 
-    [TextArea(5, 10)]
-    public string[] sentences;
+    [TextArea(5, 10)] public string[] sentences;
+
+    [Header("Choice Information")]
+    public bool bHasChoice;
+    public int choicePath;
+    public List<string> choices;
 }

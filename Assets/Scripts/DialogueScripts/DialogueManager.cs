@@ -40,7 +40,13 @@ public class DialogueManager : MonoBehaviour
     private GameObject speaker1Images;
     private GameObject speaker2Images;
 
+    [Header("Choice Objects")]
+    public GameObject choiceButtonPrefab;
+    public Transform choiceButtonGroup;
+    private int currentChoicePath;
+
     //skip toggle
+    private IEnumerator readLineCourutine;
     bool bSkipActive;
 
     public static Action EndDialogueDelegate = delegate { };
@@ -55,7 +61,8 @@ public class DialogueManager : MonoBehaviour
         typeSpeed = 11 - typeSpeed;
         typeSpeed /= 100;
         typeStart = typeSpeed;
-        //portrait.enabled = false;
+
+        readLineCourutine = ReadLine();
     }
 
     private void OnDisable()
@@ -86,9 +93,23 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(DialogueInfo dialogue)
     {
         dialogueVal = dialogue;
-        pActions.PlayerActions.Mouse1.started += NextLineButton;
-        pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
-        pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
+        //if dialogue paths are availiable
+        if (dialogueVal.conversation[iName].bHasChoice)
+        {
+            ChoiceButtonGen();
+            bSkipActive = false;
+
+            pActions.PlayerActions.Mouse1.started -= NextLineButton;
+            pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
+            pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
+        }
+        else
+        {
+            pActions.PlayerActions.Mouse1.started += NextLineButton;
+            pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
+            pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
+
+        }
 
         ManageSpeakerImages();
         ChangeBackground();
@@ -139,10 +160,11 @@ public class DialogueManager : MonoBehaviour
                 EndDialogue();
                 return;
             }
+
             iName++;
             jSent = 0;
-
             sb.Clear();
+
             StartDialogue(dialogueVal);
         }
     }
@@ -154,9 +176,12 @@ public class DialogueManager : MonoBehaviour
         sb.Clear();
 
         sb.Append(dialogueVal.conversation[iName].sentences[jSent]);
-        //  sb.Replace("/name", pName.playerName);
         foreach (char letter in sb.ToString().ToCharArray())
         {
+            if (!bIsTalking)
+            {
+                yield break;
+            }
             sentencesTXT.text += letter;
             yield return new WaitForSeconds(typeSpeed);
         }
@@ -166,10 +191,11 @@ public class DialogueManager : MonoBehaviour
 
     private void SkipLine(DialogueInfo dialogue)
     {
-        StopAllCoroutines();
+        StopCoroutine(readLineCourutine);
+        //StopAllCoroutines();
+        sentencesTXT.text = "";
         sb.Clear();
         sb.Append(dialogue.conversation[iName].sentences[jSent]);
-        //   sb.Replace("/name", pName.playerName);
 
         sentencesTXT.text = sb.ToString();
         bIsTalking = false;
@@ -177,7 +203,7 @@ public class DialogueManager : MonoBehaviour
     }
     private void SkipDialogueOn(InputAction.CallbackContext c)
     {
-        Debug.Log("on");
+        //Debug.Log("on");
         bSkipActive = true;
         StartCoroutine(skip());
     }
@@ -187,12 +213,11 @@ public class DialogueManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
             NextLine();
-            Debug.Log("deee");
         }
     }
     private void SkipDialogueOff(InputAction.CallbackContext c)
     {
-        Debug.Log("off");
+        //Debug.Log("off");
         bSkipActive = false;
     }
 
@@ -323,9 +348,45 @@ public class DialogueManager : MonoBehaviour
             background.color = new Color(0, 0, 0, 0.3f);
         }
     }
+    private void ChoiceButtonGen()
+    {
+        for(int i = 0; i < dialogueVal.conversation[iName].choices.Count; i++)
+        {
+            GameObject button = Instantiate(choiceButtonPrefab, choiceButtonGroup);
+            //sets choice text name to button text
+            button.GetComponent<ButtonValueHolder>().InstantiateButton(dialogueVal, dialogueVal.conversation[iName].choices[i], i + 1);
+        }
+    }
 
+    //genorated buttons wioll be assained a choice path value
+    public void ChoiceButtonSelected(int choicePathVal)
+    {
+        Debug.Log(choicePathVal);
+        currentChoicePath = choicePathVal;
+
+        //destroy gen buttons after use
+        for(int i = 0; i < choiceButtonGroup.childCount; i++)
+        {
+            Destroy(choiceButtonGroup.GetChild(i).gameObject);
+        }
+
+        //continue dialogue
+        StopCoroutine(readLineCourutine);
+        iName++;
+        jSent = 0;
+        sb.Clear();
+        bSkipActive = false;
+        bIsTalking = false;
+
+        StartDialogue(dialogueVal);
+
+        pActions.PlayerActions.Mouse1.started += NextLineButton;
+        pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
+        pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
+    }
     private void EndDialogue()
     {
+        StopAllCoroutines();
         bSkipActive = false;
         dialogueCanvas.SetActive(false);
         pActions.PlayerActions.Mouse1.started -= NextLineButton;
