@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour
+public class MiniGameTrigger : MonoBehaviour
 {
-    public GameObject talkButton;
-    public List<DialogueInfo> dialogueList;
+    public GameObject gameButton;
+
 
     private void OnEnable()
     {
@@ -21,26 +21,26 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            talkButton.SetActive(true);
+            gameButton.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            talkButton.SetActive(false);
+            gameButton.SetActive(false);
         }
     }
 
-    public void TalkButton()
+    public void GameButton()
     {
-        talkButton.SetActive(false);
-        DialogueManager.instance.StartDialogue(dialogueList[0]);
+        gameButton.SetActive(false);
 
         PlayerStateMachine.instance.PlayerLock();
     }
     private void TalkEnd()
     {
         PlayerStateMachine.instance.PlayerFreeWill();
+
     }
 }
