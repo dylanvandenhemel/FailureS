@@ -71,33 +71,3 @@ MonoBehaviour:
     bHasChoice: 0
     choicePath: 2
     choices: []
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - anyways back to main path
-    - crazy
-    bHasChoice: 0
-    choicePath: 0
-    choices: []
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - anyways back to main path
-    - crazy
-    bHasChoice: 0
-    choicePath: 0
-    choices: []

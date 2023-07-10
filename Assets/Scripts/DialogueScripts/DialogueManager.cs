@@ -127,7 +127,6 @@ public class DialogueManager : MonoBehaviour
         sentencesTXT.text = "";
         sb.Clear();
         sb.Append(dialogue.conversation[iName].charName);
-        // sb.Replace("/name", pName.playerName);
 
         dialogueCanvas.SetActive(true);
 
@@ -141,32 +140,55 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayNextSentance()
     {
-        if (jSent < dialogueVal.conversation[iName].sentences.Length)
+        if (dialogueVal.conversation[iName].choicePath == 0 || dialogueVal.conversation[iName].choicePath == currentChoicePath)
         {
-            if (bIsTalking)
+            if (jSent < dialogueVal.conversation[iName].sentences.Length)
             {
-                SkipLine(dialogueVal);
+                if (bIsTalking)
+                {
+                    SkipLine(dialogueVal);
+                }
+                else
+                {
+                    typeSpeed = typeStart;
+                    StartCoroutine(ReadLine());
+                }
+            }
+            else if (jSent == dialogueVal.conversation[iName].sentences.Length)
+            {
+                if (iName == dialogueVal.conversation.Count - 1)
+                {
+                    EndDialogue();
+                    return;
+                }
+
+                iName++;
+                jSent = 0;
+                sb.Clear();
+
+                StartDialogue(dialogueVal);
             }
             else
             {
-                typeSpeed = typeStart;
-                StartCoroutine(ReadLine());
+                //catch when jSent is too large
+                jSent = 0;
             }
         }
-        else if (jSent == dialogueVal.conversation[iName].sentences.Length)
+        else
         {
+            //not in path go to next available path
             if (iName == dialogueVal.conversation.Count - 1)
             {
                 EndDialogue();
                 return;
             }
-
             iName++;
             jSent = 0;
             sb.Clear();
 
             StartDialogue(dialogueVal);
         }
+        
     }
 
     IEnumerator ReadLine()
@@ -211,7 +233,7 @@ public class DialogueManager : MonoBehaviour
     {
         while (bSkipActive)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             NextLine();
         }
     }
@@ -386,13 +408,13 @@ public class DialogueManager : MonoBehaviour
     }
     private void EndDialogue()
     {
-        StopAllCoroutines();
-        bSkipActive = false;
         dialogueCanvas.SetActive(false);
         pActions.PlayerActions.Mouse1.started -= NextLineButton;
         pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
+        StopAllCoroutines();
 
+        bSkipActive = false;
         iName = 0;
         jSent = 0;
 
