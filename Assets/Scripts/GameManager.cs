@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject bedCanvas;
 
     [Header("Day Cycle")]
+    public GameObject dayCycleCanvas;
     public TMP_Text dayNumberTXT;
     private int dayNumber;
     public Image cycleImage;
@@ -119,5 +120,14 @@ public class GameManager : MonoBehaviour
         {
             cycleImage.color = night;
         }
+    }
+
+    public void EnableDayCycleCanvas()
+    {
+        dayCycleCanvas.SetActive(true);
+    }
+    public void DisableDayCycleCanvas()
+    {
+        dayCycleCanvas.SetActive(false);
     }
 }

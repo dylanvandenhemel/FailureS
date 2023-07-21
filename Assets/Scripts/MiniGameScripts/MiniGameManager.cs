@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class MiniGameManager : MonoBehaviour
@@ -8,13 +9,20 @@ public class MiniGameManager : MonoBehaviour
     public static MiniGameManager instance;
     PlayerControls pActions;
 
+    [Header("Basic Game UI")]
     public GameObject miniGameGroup;
+    public Slider playerSlider;
+    public Slider partnerSlider;
 
     [Header("Ring Game")]
     public GameObject ringMatchGame;
     public RectTransform ringToMatchObject;
     public RectTransform ringToScaleObject;
     private bool bRingGameActive;
+
+    [Header("Bar Game")]
+    public GameObject barGame;
+
 
     //all games info
     private int miniGameID = 1;
@@ -38,12 +46,14 @@ public class MiniGameManager : MonoBehaviour
 
     public void StartMiniGame(int difficulty)
     {
+        GameManager.instance.DisableDayCycleCanvas();
+
         Debug.Log("start game");
         miniGameGroup.SetActive(true);
         difficultyScale = difficulty;
-        StartCoroutine(miniGameStart(difficultyScale));
+        StartCoroutine(miniGameStart());
     }
-    IEnumerator miniGameStart(int difficultyScale)
+    IEnumerator miniGameStart()
     {
         //will be rand later
         //miniGameID++;
@@ -53,11 +63,11 @@ public class MiniGameManager : MonoBehaviour
         //ring match
         if(miniGameID == 1)
         {
-            RingMatch(difficultyScale);
+            RingMatch();
         }
         else if(miniGameID == 2)
         {
-
+            BarSlide();
         }
         else if(miniGameID == 3)
         {
@@ -67,34 +77,47 @@ public class MiniGameManager : MonoBehaviour
     }
 
     //ring increases to size of match ring, player must press button when scale is close enough to match scale
-    private void RingMatch(int difficultyScale)
-    {
-        bRingGameActive = true;
-        ringMatchGame.SetActive(true);
-        pActions.PlayerActions.Mouse1.started += MiniGameClick;
-        StartCoroutine(ringMatchTiming(difficultyScale));
-    }
-    IEnumerator ringMatchTiming(int difficultyScale)
-    {
-        while (ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.4f && bRingGameActive)
+        private void RingMatch()
         {
-            if(ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.1f && ringToScaleObject.localScale.x > ringToMatchObject.localScale.x - 0.1f)
+            bRingGameActive = true;
+            ringMatchGame.SetActive(true);
+            pActions.PlayerActions.Mouse1.started += MiniGameClick;
+            StartCoroutine(ringMatchTiming());
+        }
+        IEnumerator ringMatchTiming()
+        {
+            while (ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.4f && bRingGameActive)
             {
-                bInSpace = true;
+                if(ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.1f && ringToScaleObject.localScale.x > ringToMatchObject.localScale.x - 0.1f)
+                {
+                    bInSpace = true;
+                }
+                else
+                {
+                    bInSpace = false;
+                }
+                yield return new WaitForFixedUpdate();
+                ringToScaleObject.localScale = new Vector2(ringToScaleObject.localScale.x + (0.01f * difficultyScale), ringToScaleObject.localScale.y + (0.01f) * difficultyScale);
             }
-            else
+
+            if (bRingGameActive)
             {
-                bInSpace = false;
+                FailedClick();
             }
-            yield return new WaitForFixedUpdate();
-            ringToScaleObject.localScale = new Vector2(ringToScaleObject.localScale.x + (0.01f * difficultyScale), ringToScaleObject.localScale.y + (0.01f) * difficultyScale);
         }
 
-        if (bRingGameActive)
+    //bar slider game, spot slides on bar back and forth until press
+        private void BarSlide()
         {
-            FailedClick();
+
         }
-    }
+        IEnumerator barSlidehTiming()
+        {
+            yield return new WaitForFixedUpdate();
+        }
+    //
+
+
 
     private void MiniGameClick(InputAction.CallbackContext c)
     {
@@ -111,13 +134,26 @@ public class MiniGameManager : MonoBehaviour
     {
         Debug.Log("yes");
         totalWonGames++;
+        //player, partner sliders  respectivly
+        AdjustSliders(5, 15);
+
         CancelGame();
     }
     private void FailedClick()
     {
         Debug.Log("fail");
+
+        AdjustSliders(20, 5);
+
         CancelGame();
     }
+
+    public void AdjustSliders(float playerAmount, float partnerAmount)
+    {
+        playerSlider.value += playerAmount;
+        partnerSlider.value += partnerAmount;
+    }
+
     private void CancelGame()
     {
         pActions.PlayerActions.Mouse1.started -= MiniGameClick;
@@ -130,7 +166,7 @@ public class MiniGameManager : MonoBehaviour
         }
         else
         {
-            EndGameRound(totalWonGames);
+            StartCoroutine(EndGameRound(totalWonGames));
             //end of roun
             totalWonGames = 0;
             roundOfGames = 3;
@@ -141,16 +177,26 @@ public class MiniGameManager : MonoBehaviour
         bRingGameActive = false;
         ringToScaleObject.localScale = new Vector3(0.1f, 0.1f);
         ringMatchGame.SetActive(false);
+
+        //bar game cancel
+
+
+
     }
 
-    private void EndGameRound(int wonGames)
+    IEnumerator EndGameRound(int wonGames)
     {
+        yield return new WaitForSeconds(1);
+
+        miniGameGroup.SetActive(false);
         Debug.Log("Games Won: " + wonGames);
-        //adjust sliders as needed here
-
-
-
-
 
     }
+
+    public void EndMiniGameMode()
+    {
+        GameManager.instance.EnableDayCycleCanvas();
+        miniGameGroup.SetActive(false);
+    }
+
 }

@@ -92,6 +92,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueInfo dialogue)
     {
+        GameManager.instance.DisableDayCycleCanvas();
+
         dialogueVal = dialogue;
         //if dialogue paths are availiable
         if (dialogueVal.conversation[iName].bHasChoice)
@@ -408,6 +410,8 @@ public class DialogueManager : MonoBehaviour
     }
     private void EndDialogue()
     {
+        GameManager.instance.EnableDayCycleCanvas();
+
         dialogueCanvas.SetActive(false);
         pActions.PlayerActions.Mouse1.started -= NextLineButton;
         pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
