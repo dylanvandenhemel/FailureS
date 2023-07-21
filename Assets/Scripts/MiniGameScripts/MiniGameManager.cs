@@ -22,6 +22,11 @@ public class MiniGameManager : MonoBehaviour
 
     [Header("Bar Game")]
     public GameObject barGame;
+    public RectTransform barTarget;
+    public RectTransform barSlider;
+    public RectTransform barLeftSide;
+    public RectTransform barRightSide;
+    private bool bBarGameActive;
 
 
     //all games info
@@ -109,11 +114,18 @@ public class MiniGameManager : MonoBehaviour
     //bar slider game, spot slides on bar back and forth until press
         private void BarSlide()
         {
-
+            bBarGameActive = true;
+            barGame.SetActive(true);
+            pActions.PlayerActions.Mouse1.started += MiniGameClick;
+            StartCoroutine(barSlideTiming());
         }
-        IEnumerator barSlidehTiming()
+        IEnumerator barSlideTiming()
         {
-            yield return new WaitForFixedUpdate();
+            while (bBarGameActive)
+            {
+
+                yield return new WaitForFixedUpdate();
+            }
         }
     //
 
