@@ -33,11 +33,13 @@ public class MiniGameManager : MonoBehaviour
     public GameObject osuGame;
     public Slider osuGameSlider;
     public List<GameObject> osuTargets;
+    [HideInInspector] public int osuTargetsClicked;
     private bool bOSUGameActive;
 
 
     //all games info
     private int miniGameID = 1;
+    private int miniGameIdOld;
     private int difficultyScale;
     private bool bInSpace;
     private int totalWonGames;
@@ -66,8 +68,12 @@ public class MiniGameManager : MonoBehaviour
     }
     IEnumerator miniGameStart()
     {
-        miniGameID = Random.Range(1, 3);
-        miniGameID = 3;
+        miniGameID = Random.Range(1, 4);
+        while(miniGameID == miniGameIdOld)
+        {
+            miniGameID = Random.Range(1, 4);
+        }
+        miniGameIdOld = miniGameID;
 
         //bar slide starter
         barSliderStartPos = barLeftSide.anchoredPosition;
@@ -87,6 +93,7 @@ public class MiniGameManager : MonoBehaviour
         {
             OSUGame();
         }
+        //maybe more........
 
     }
 
@@ -185,24 +192,28 @@ public class MiniGameManager : MonoBehaviour
     }
     IEnumerator osuTimer()
     {
-        int targetID;
+        //prevents duplicates
+        int targetIDPrev = 0;
+        int targetIDOld = 0;
         int targetIDNew = 0;
 
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 3; i++)
         {
-            targetID = targetIDNew;
-            targetIDNew = Random.Range(0, osuTargets.Count + 1);
-            Debug.Log(targetID + " " + targetIDNew + " targetCount: " + osuTargets.Count);
-            if (targetIDNew != targetID)
+            targetIDPrev = targetIDOld;
+            targetIDOld = targetIDNew;
+            targetIDNew = Random.Range(0, osuTargets.Count);
+            Debug.Log(targetIDPrev + " " + targetIDOld + " " + targetIDNew + " targetCount: " + osuTargets.Count);
+            if (targetIDNew != targetIDOld || targetIDNew != targetIDPrev)
             {
                 osuTargets[targetIDNew].gameObject.SetActive(true);
             }
-            else if(targetIDNew == targetID)
+            else if(targetIDNew == targetIDOld || targetIDNew == targetIDPrev)
             {
                 i--;
             }
 
         }
+
 
         while (bOSUGameActive)
         {
@@ -211,7 +222,14 @@ public class MiniGameManager : MonoBehaviour
             {
                 FailedClick();
             }
+
             yield return new WaitForFixedUpdate();
+
+            //win condition
+            if(osuTargetsClicked >= 3)
+            {
+                SuccessClick();
+            }
 
         }
     }
@@ -283,7 +301,11 @@ public class MiniGameManager : MonoBehaviour
 
         //osu game cancel
         bOSUGameActive = false;
-
+        for(int i = 0; i < osuTargets.Count; i++)
+        {
+            osuTargets[i].gameObject.SetActive(false);
+        }
+        osuTargetsClicked = 0;
         osuGame.SetActive(false);
 
 
