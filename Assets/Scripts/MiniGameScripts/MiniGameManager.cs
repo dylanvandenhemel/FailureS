@@ -22,8 +22,9 @@ public class MiniGameManager : MonoBehaviour
 
     [Header("Bar Game")]
     public GameObject barGame;
-    public RectTransform barTarget;
     public RectTransform barSlider;
+    private Vector3 barSliderStartPos;
+    public RectTransform barTarget;
     public RectTransform barLeftSide;
     public RectTransform barRightSide;
     private bool bBarGameActive;
@@ -53,16 +54,14 @@ public class MiniGameManager : MonoBehaviour
     {
         GameManager.instance.DisableDayCycleCanvas();
 
-        Debug.Log("start game");
         miniGameGroup.SetActive(true);
         difficultyScale = difficulty;
         StartCoroutine(miniGameStart());
     }
     IEnumerator miniGameStart()
     {
-        //will be rand later
-        //miniGameID++;
-        //
+        miniGameID = Random.Range(1, 3);
+        //miniGameID = 2;
 
         yield return new WaitForSeconds(1);
         //ring match
@@ -121,8 +120,42 @@ public class MiniGameManager : MonoBehaviour
         }
         IEnumerator barSlideTiming()
         {
+            RectTransform currentTarget = barRightSide;
+            barSliderStartPos = barSlider.position;
             while (bBarGameActive)
             {
+                Vector3 direction = (currentTarget.position - barSlider.position).normalized;
+                float distanceToTarget = Vector3.Distance(barSlider.position, currentTarget.position);
+                float stoppingDistance = 50;
+
+                // Check if the UI element has reached the current target
+                if (distanceToTarget > stoppingDistance)
+                {
+                    barSlider.position += direction * 400 * difficultyScale * Time.fixedDeltaTime;
+                }
+                else
+                {
+                    // Switch the target based on the current target
+                    if (currentTarget == barRightSide)
+                    {
+                        currentTarget = barLeftSide;
+                    }
+                    else
+                    {
+                        currentTarget = barRightSide;
+                    }
+                }
+
+                //range of click time
+                if(Vector3.Distance(barSlider.position, barTarget.position) <= 30)
+                {
+                    bInSpace = true;
+                }
+                else
+                {
+                    bInSpace = false;
+                }
+
 
                 yield return new WaitForFixedUpdate();
             }
@@ -144,7 +177,7 @@ public class MiniGameManager : MonoBehaviour
     }
     private void SuccessClick()
     {
-        Debug.Log("yes");
+        Debug.Log("succ");
         totalWonGames++;
         //player, partner sliders  respectivly
         AdjustSliders(5, 15);
@@ -191,6 +224,9 @@ public class MiniGameManager : MonoBehaviour
         ringMatchGame.SetActive(false);
 
         //bar game cancel
+        bBarGameActive = false;
+        barSlider.position = barSliderStartPos;
+        barGame.SetActive(false);
 
 
 
