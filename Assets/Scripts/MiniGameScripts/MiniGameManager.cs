@@ -29,6 +29,12 @@ public class MiniGameManager : MonoBehaviour
     public RectTransform barRightSide;
     private bool bBarGameActive;
 
+    [Header("OSU Game")]
+    public GameObject osuGame;
+    public Slider osuGameSlider;
+    public List<GameObject> osuTargets;
+    private bool bOSUGameActive;
+
 
     //all games info
     private int miniGameID = 1;
@@ -61,7 +67,7 @@ public class MiniGameManager : MonoBehaviour
     IEnumerator miniGameStart()
     {
         miniGameID = Random.Range(1, 3);
-        //miniGameID = 2;
+        miniGameID = 3;
 
         //bar slide starter
         barSliderStartPos = barLeftSide.anchoredPosition;
@@ -79,40 +85,42 @@ public class MiniGameManager : MonoBehaviour
         }
         else if(miniGameID == 3)
         {
-
+            OSUGame();
         }
 
     }
 
     //ring increases to size of match ring, player must press button when scale is close enough to match scale
-        private void RingMatch()
+    private void RingMatch()
+    {
+        bRingGameActive = true;
+        ringMatchGame.SetActive(true);
+        pActions.PlayerActions.Mouse1.started += MiniGameClick;
+        StartCoroutine(ringMatchTiming());
+    }
+    IEnumerator ringMatchTiming()
+    {
+        while (ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.4f && bRingGameActive)
         {
-            bRingGameActive = true;
-            ringMatchGame.SetActive(true);
-            pActions.PlayerActions.Mouse1.started += MiniGameClick;
-            StartCoroutine(ringMatchTiming());
-        }
-        IEnumerator ringMatchTiming()
-        {
-            while (ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.4f && bRingGameActive)
+            if(ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.1f && ringToScaleObject.localScale.x > ringToMatchObject.localScale.x - 0.1f)
             {
-                if(ringToScaleObject.localScale.x < ringToMatchObject.localScale.x + 0.1f && ringToScaleObject.localScale.x > ringToMatchObject.localScale.x - 0.1f)
-                {
-                    bInSpace = true;
-                }
-                else
-                {
-                    bInSpace = false;
-                }
-                yield return new WaitForFixedUpdate();
-                ringToScaleObject.localScale = new Vector2(ringToScaleObject.localScale.x + (0.01f * difficultyScale), ringToScaleObject.localScale.y + (0.01f) * difficultyScale);
+                bInSpace = true;
             }
+            else
+            {
+                bInSpace = false;
+            }
+            yield return new WaitForFixedUpdate();
+            ringToScaleObject.localScale = new Vector2(ringToScaleObject.localScale.x + (0.01f * difficultyScale), ringToScaleObject.localScale.y + (0.01f) * difficultyScale);
+        }
 
-            if (bRingGameActive)
-            {
-                FailedClick();
-            }
+        if (bRingGameActive)
+        {
+            FailedClick();
         }
+    }
+    //
+
 
     //bar slider game, spot slides on bar back and forth until press
     private void BarSlide()
@@ -166,8 +174,49 @@ public class MiniGameManager : MonoBehaviour
     }
     //
 
+    //Osu game, three targets will appear and all need to bhe clicked on before time runs out
+    private void OSUGame()
+    {
+        bOSUGameActive = true;
+        osuGame.SetActive(true);
+        osuGameSlider.value = 100;
 
+        StartCoroutine(osuTimer());
+    }
+    IEnumerator osuTimer()
+    {
+        int targetID;
+        int targetIDNew = 0;
 
+        for(int i = 0; i < 2; i++)
+        {
+            targetID = targetIDNew;
+            targetIDNew = Random.Range(0, osuTargets.Count + 1);
+            Debug.Log(targetID + " " + targetIDNew + " targetCount: " + osuTargets.Count);
+            if (targetIDNew != targetID)
+            {
+                osuTargets[targetIDNew].gameObject.SetActive(true);
+            }
+            else if(targetIDNew == targetID)
+            {
+                i--;
+            }
+
+        }
+
+        while (bOSUGameActive)
+        {
+            osuGameSlider.value -= 0.5f * difficultyScale;
+            if(osuGameSlider.value <= 0)
+            {
+                FailedClick();
+            }
+            yield return new WaitForFixedUpdate();
+
+        }
+    }
+
+    //
     private void MiniGameClick(InputAction.CallbackContext c)
     {
         if (bInSpace)
@@ -232,7 +281,10 @@ public class MiniGameManager : MonoBehaviour
         barSlider.anchoredPosition = barSliderStartPos;
         barGame.SetActive(false);
 
+        //osu game cancel
+        bOSUGameActive = false;
 
+        osuGame.SetActive(false);
 
 
     }
