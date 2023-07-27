@@ -445,7 +445,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111861905}
-  m_LocalRotation: {x: 1.11433e-40, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 1.11946e-40, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2442,6 +2442,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 986325721572727790, guid: e21114828cf68254e8c74a143b80253c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1023119196833777290, guid: e21114828cf68254e8c74a143b80253c, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2508,7 +2512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5813827677814704762, guid: e21114828cf68254e8c74a143b80253c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6413871231161354262, guid: e21114828cf68254e8c74a143b80253c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2524,7 +2528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7301261567176045442, guid: e21114828cf68254e8c74a143b80253c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

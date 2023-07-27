@@ -63,12 +63,16 @@ public class MiniGameManager : MonoBehaviour
         miniGameID = Random.Range(1, 3);
         //miniGameID = 2;
 
+        //bar slide starter
+        barSliderStartPos = barLeftSide.anchoredPosition;
+
         yield return new WaitForSeconds(1);
         //ring match
         if(miniGameID == 1)
         {
             RingMatch();
         }
+        //Bar Slide
         else if(miniGameID == 2)
         {
             BarSlide();
@@ -111,55 +115,55 @@ public class MiniGameManager : MonoBehaviour
         }
 
     //bar slider game, spot slides on bar back and forth until press
-        private void BarSlide()
+    private void BarSlide()
+    {
+        bBarGameActive = true;
+        barGame.SetActive(true);
+        pActions.PlayerActions.Mouse1.started += MiniGameClick;
+        StartCoroutine(barSlideTiming());
+    }
+    IEnumerator barSlideTiming()
+    {
+        RectTransform currentTarget = barRightSide;
+        barSlider.anchoredPosition = barSliderStartPos;
+        while (bBarGameActive)
         {
-            bBarGameActive = true;
-            barGame.SetActive(true);
-            pActions.PlayerActions.Mouse1.started += MiniGameClick;
-            StartCoroutine(barSlideTiming());
-        }
-        IEnumerator barSlideTiming()
-        {
-            RectTransform currentTarget = barRightSide;
-            barSliderStartPos = barSlider.position;
-            while (bBarGameActive)
+            Vector3 direction = (currentTarget.position - barSlider.position).normalized;
+            float distanceToTarget = Vector3.Distance(barSlider.position, currentTarget.position);
+            float stoppingDistance = 50;
+
+            // Check if the UI element has reached the current target
+            if (distanceToTarget > stoppingDistance)
             {
-                Vector3 direction = (currentTarget.position - barSlider.position).normalized;
-                float distanceToTarget = Vector3.Distance(barSlider.position, currentTarget.position);
-                float stoppingDistance = 50;
-
-                // Check if the UI element has reached the current target
-                if (distanceToTarget > stoppingDistance)
-                {
-                    barSlider.position += direction * 400 * difficultyScale * Time.fixedDeltaTime;
-                }
-                else
-                {
-                    // Switch the target based on the current target
-                    if (currentTarget == barRightSide)
-                    {
-                        currentTarget = barLeftSide;
-                    }
-                    else
-                    {
-                        currentTarget = barRightSide;
-                    }
-                }
-
-                //range of click time
-                if(Vector3.Distance(barSlider.position, barTarget.position) <= 30)
-                {
-                    bInSpace = true;
-                }
-                else
-                {
-                    bInSpace = false;
-                }
-
-
-                yield return new WaitForFixedUpdate();
+                barSlider.position += direction * 400 * difficultyScale * Time.fixedDeltaTime;
             }
+            else
+            {
+                // Switch the target based on the current target
+                if (currentTarget == barRightSide)
+                {
+                    currentTarget = barLeftSide;
+                }
+                else
+                {
+                    currentTarget = barRightSide;
+                }
+            }
+
+            //range of click time
+            if(Vector3.Distance(barSlider.position, barTarget.position) <= 30)
+            {
+                bInSpace = true;
+            }
+            else
+            {
+                bInSpace = false;
+            }
+
+
+            yield return new WaitForFixedUpdate();
         }
+    }
     //
 
 
@@ -225,8 +229,9 @@ public class MiniGameManager : MonoBehaviour
 
         //bar game cancel
         bBarGameActive = false;
-        barSlider.position = barSliderStartPos;
+        barSlider.anchoredPosition = barSliderStartPos;
         barGame.SetActive(false);
+
 
 
 
