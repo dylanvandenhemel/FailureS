@@ -68,11 +68,14 @@ public class MiniGameManager : MonoBehaviour
     }
     IEnumerator miniGameStart()
     {
-        miniGameID = Random.Range(1, 4);
+        miniGameID = 3;
+        //miniGameID = Random.Range(1, 4);
+        /*
         while(miniGameID == miniGameIdOld)
         {
             miniGameID = Random.Range(1, 4);
         }
+        */
         miniGameIdOld = miniGameID;
 
         //bar slide starter
@@ -193,26 +196,21 @@ public class MiniGameManager : MonoBehaviour
     IEnumerator osuTimer()
     {
         //prevents duplicates
-        int targetIDPrev = 0;
-        int targetIDOld = 0;
-        int targetIDNew = 0;
+        int targetIDFirst = 0;
+        int targetIDSecond = 0;
+        int targetIDThird = 0;
 
-        for(int i = 0; i < 3; i++)
+        while (targetIDFirst == targetIDSecond || targetIDFirst == targetIDThird || targetIDSecond == targetIDThird)
         {
-            targetIDPrev = targetIDOld;
-            targetIDOld = targetIDNew;
-            targetIDNew = Random.Range(0, osuTargets.Count);
-            Debug.Log(targetIDPrev + " " + targetIDOld + " " + targetIDNew + " targetCount: " + osuTargets.Count);
-            if (targetIDNew != targetIDOld || targetIDNew != targetIDPrev)
-            {
-                osuTargets[targetIDNew].gameObject.SetActive(true);
-            }
-            else if(targetIDNew == targetIDOld || targetIDNew == targetIDPrev)
-            {
-                i--;
-            }
+            targetIDFirst = Random.Range(0, osuTargets.Count);
+            targetIDSecond = Random.Range(0, osuTargets.Count);
+            targetIDThird = Random.Range(0, osuTargets.Count);
 
         }
+        Debug.Log(targetIDFirst + " " + targetIDSecond + " " + targetIDThird + " targetCount: " + osuTargets.Count);
+        osuTargets[targetIDFirst].gameObject.SetActive(true);
+        osuTargets[targetIDSecond].gameObject.SetActive(true);
+        osuTargets[targetIDThird].gameObject.SetActive(true);
 
 
         while (bOSUGameActive)
@@ -251,7 +249,7 @@ public class MiniGameManager : MonoBehaviour
         Debug.Log("succ");
         totalWonGames++;
         //player, partner sliders  respectivly
-        AdjustSliders(5, 15);
+        AdjustSliders(2.5f, 15);
 
         CancelGame();
     }
@@ -259,7 +257,7 @@ public class MiniGameManager : MonoBehaviour
     {
         Debug.Log("fail");
 
-        AdjustSliders(20, 5);
+        AdjustSliders(15, 5);
 
         CancelGame();
     }
