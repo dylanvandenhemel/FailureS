@@ -27,6 +27,8 @@ MonoBehaviour:
     bHasChoice: 0
     choicePath: 0
     choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -43,6 +45,8 @@ MonoBehaviour:
     choices:
     - Yes
     - no
+    bStartMinigame: 0
+    minigameDifficulty: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -57,6 +61,8 @@ MonoBehaviour:
     bHasChoice: 0
     choicePath: 1
     choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -71,6 +77,8 @@ MonoBehaviour:
     bHasChoice: 0
     choicePath: 2
     choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -85,3 +93,104 @@ MonoBehaviour:
     bHasChoice: 0
     choicePath: 0
     choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - Ready for minigame
+    bHasChoice: 0
+    choicePath: 0
+    choices: []
+    bStartMinigame: 1
+    minigameDifficulty: 1
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - welcome back from game
+    bHasChoice: 0
+    choicePath: 0
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - Uou got 3 games won!
+    - gg woooooo
+    bHasChoice: 0
+    choicePath: 3
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - you got 2 thats pretty good
+    bHasChoice: 0
+    choicePath: 2
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - bruh only got 1
+    - lame
+    bHasChoice: 0
+    choicePath: 1
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - absolute failure
+    - u bad
+    bHasChoice: 0
+    choicePath: -1
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0

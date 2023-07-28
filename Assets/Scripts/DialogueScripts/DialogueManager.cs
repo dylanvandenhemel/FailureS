@@ -43,7 +43,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Choice Objects")]
     public GameObject choiceButtonPrefab;
     public Transform choiceButtonGroup;
-    private int currentChoicePath;
+    public int currentChoicePath;
 
     //skip toggle
     private IEnumerator readLineCourutine;
@@ -75,7 +75,15 @@ public class DialogueManager : MonoBehaviour
 
     private void NextLineButton(InputAction.CallbackContext c)
     {
-        NextLine();
+        if (dialogueVal.conversation[iName].bStartMinigame)
+        {
+            Debug.Log("start minigame");
+            MiniGameStart();
+        }
+        else
+        {
+            NextLine();
+        }
     }
 
     private void NextLine()
@@ -407,6 +415,21 @@ public class DialogueManager : MonoBehaviour
         pActions.PlayerActions.Mouse1.started += NextLineButton;
         pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
+    }
+
+    private void MiniGameStart()
+    {
+        dialogueCanvas.SetActive(false);
+        pActions.PlayerActions.Mouse1.started -= NextLineButton;
+        pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
+        pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
+        StopAllCoroutines();
+
+        bSkipActive = false;
+
+
+        MiniGameManager.instance.StartMiniGame(dialogueVal.conversation[iName].minigameDifficulty);
+
     }
     private void EndDialogue()
     {

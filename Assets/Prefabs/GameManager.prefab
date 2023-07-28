@@ -747,6 +747,7 @@ MonoBehaviour:
   portraitRight: {fileID: 2995060794489066113}
   choiceButtonPrefab: {fileID: 8254296265573242709, guid: add9231ae9f0eee41b38ae2b50d56569, type: 3}
   choiceButtonGroup: {fileID: 1734883905022739696}
+  currentChoicePath: 0
 --- !u!114 &5321771414614537563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2625,6 +2626,7 @@ GameObject:
   - component: {fileID: 9201437062858979831}
   - component: {fileID: 786094243107532588}
   - component: {fileID: 8622218980708471928}
+  - component: {fileID: 1906485995732373246}
   m_Layer: 5
   m_Name: osuGameGroup
   m_TagString: Untagged
@@ -2690,7 +2692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2706,6 +2708,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1906485995732373246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416521682515392474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284a2e74af34a844d90b743739cfafef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4921092532931081816
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,4 +32,8 @@ public struct Dialogue
     public bool bHasChoice;
     public int choicePath;
     public List<string> choices;
+
+    [Header("For Minigame CutAway")]
+    public bool bStartMinigame;
+    [Tooltip("1 - 3")]public int minigameDifficulty;
 }

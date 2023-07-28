@@ -68,14 +68,12 @@ public class MiniGameManager : MonoBehaviour
     }
     IEnumerator miniGameStart()
     {
-        miniGameID = 3;
-        //miniGameID = Random.Range(1, 4);
-        /*
+        miniGameID = Random.Range(1, 4);
+        
         while(miniGameID == miniGameIdOld)
         {
             miniGameID = Random.Range(1, 4);
         }
-        */
         miniGameIdOld = miniGameID;
 
         //bar slide starter
@@ -253,7 +251,7 @@ public class MiniGameManager : MonoBehaviour
 
         CancelGame();
     }
-    private void FailedClick()
+    public void FailedClick()
     {
         Debug.Log("fail");
 
@@ -311,17 +309,17 @@ public class MiniGameManager : MonoBehaviour
 
     IEnumerator EndGameRound(int wonGames)
     {
+        if(wonGames == 0)
+        {
+            wonGames = -1;
+        }
+        Debug.Log("Games Won: " + wonGames);
         yield return new WaitForSeconds(1);
 
         miniGameGroup.SetActive(false);
-        Debug.Log("Games Won: " + wonGames);
+        DialogueManager.instance.dialogueCanvas.SetActive(true);
+        DialogueManager.instance.currentChoicePath = wonGames;
+        DialogueManager.instance.StartDialogue(DialogueManager.instance.dialogueVal);
 
     }
-
-    public void EndMiniGameMode()
-    {
-        GameManager.instance.EnableDayCycleCanvas();
-        miniGameGroup.SetActive(false);
-    }
-
 }
