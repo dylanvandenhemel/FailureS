@@ -194,3 +194,37 @@ MonoBehaviour:
     choices: []
     bStartMinigame: 0
     minigameDifficulty: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - go again
+    - foooo
+    - sssss
+    bHasChoice: 0
+    choicePath: 0
+    choices: []
+    bStartMinigame: 1
+    minigameDifficulty: 1
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - done
+    bHasChoice: 0
+    choicePath: 0
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 0

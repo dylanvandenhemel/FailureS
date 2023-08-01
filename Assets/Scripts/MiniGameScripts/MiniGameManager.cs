@@ -55,7 +55,7 @@ public class MiniGameManager : MonoBehaviour
     private void OnDisable()
     {
         pActions.Disable();
-        pActions.PlayerActions.Mouse1.started -= MiniGameClick;
+        pActions.PlayerActions.Confirm.started -= MiniGameClick;
     }
 
     public void StartMiniGame(int difficulty)
@@ -103,7 +103,7 @@ public class MiniGameManager : MonoBehaviour
     {
         bRingGameActive = true;
         ringMatchGame.SetActive(true);
-        pActions.PlayerActions.Mouse1.started += MiniGameClick;
+        pActions.PlayerActions.Confirm.started += MiniGameClick;
         StartCoroutine(ringMatchTiming());
     }
     IEnumerator ringMatchTiming()
@@ -135,7 +135,7 @@ public class MiniGameManager : MonoBehaviour
     {
         bBarGameActive = true;
         barGame.SetActive(true);
-        pActions.PlayerActions.Mouse1.started += MiniGameClick;
+        pActions.PlayerActions.Confirm.started += MiniGameClick;
         StartCoroutine(barSlideTiming());
     }
     IEnumerator barSlideTiming()
@@ -205,7 +205,7 @@ public class MiniGameManager : MonoBehaviour
             targetIDThird = Random.Range(0, osuTargets.Count);
 
         }
-        Debug.Log(targetIDFirst + " " + targetIDSecond + " " + targetIDThird + " targetCount: " + osuTargets.Count);
+        //Debug.Log(targetIDFirst + " " + targetIDSecond + " " + targetIDThird + " targetCount: " + osuTargets.Count);
         osuTargets[targetIDFirst].gameObject.SetActive(true);
         osuTargets[targetIDSecond].gameObject.SetActive(true);
         osuTargets[targetIDThird].gameObject.SetActive(true);
@@ -244,7 +244,7 @@ public class MiniGameManager : MonoBehaviour
     }
     private void SuccessClick()
     {
-        Debug.Log("succ");
+        //Debug.Log("succ");
         totalWonGames++;
         //player, partner sliders  respectivly
         AdjustSliders(2.5f, 15);
@@ -253,7 +253,7 @@ public class MiniGameManager : MonoBehaviour
     }
     public void FailedClick()
     {
-        Debug.Log("fail");
+        //Debug.Log("fail");
 
         AdjustSliders(15, 5);
 
@@ -268,7 +268,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void CancelGame()
     {
-        pActions.PlayerActions.Mouse1.started -= MiniGameClick;
+        pActions.PlayerActions.Confirm.started -= MiniGameClick;
         bInSpace = false;
         //continue if max games not reached
         roundOfGames--;
@@ -319,7 +319,8 @@ public class MiniGameManager : MonoBehaviour
         miniGameGroup.SetActive(false);
         DialogueManager.instance.dialogueCanvas.SetActive(true);
         DialogueManager.instance.currentChoicePath = wonGames;
+        DialogueManager.instance.iName++;
+        DialogueManager.instance.jSent = 0;
         DialogueManager.instance.StartDialogue(DialogueManager.instance.dialogueVal);
-
     }
 }

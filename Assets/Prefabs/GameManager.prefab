@@ -741,6 +741,7 @@ MonoBehaviour:
   nameText: {fileID: 1023119197010914761}
   sentencesTXT: {fileID: 1023119196396396029}
   iName: 0
+  jSent: 0
   typeSpeed: 10
   portraitCenter: {fileID: 3448130459483717344}
   portraitLeft: {fileID: 4065410162606233851}
@@ -3407,7 +3408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.33333334}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

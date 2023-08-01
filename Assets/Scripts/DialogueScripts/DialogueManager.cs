@@ -27,7 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     //speaker value
     [HideInInspector] public int iName;
-    private int jSent;
+    [HideInInspector] public int jSent;
 
     [Range(1, 10)]
     public float typeSpeed;
@@ -68,22 +68,14 @@ public class DialogueManager : MonoBehaviour
     private void OnDisable()
     {
         pActions.Disable();
-        pActions.PlayerActions.Mouse1.started -= NextLineButton;
+        pActions.PlayerActions.Confirm.started -= NextLineButton;
         pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
     }
 
     private void NextLineButton(InputAction.CallbackContext c)
     {
-        if (dialogueVal.conversation[iName].bStartMinigame)
-        {
-            Debug.Log("start minigame");
-            MiniGameStart();
-        }
-        else
-        {
-            NextLine();
-        }
+        NextLine();
     }
 
     private void NextLine()
@@ -109,13 +101,13 @@ public class DialogueManager : MonoBehaviour
             ChoiceButtonGen();
             bSkipActive = false;
 
-            pActions.PlayerActions.Mouse1.started -= NextLineButton;
+            pActions.PlayerActions.Confirm.started -= NextLineButton;
             pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
             pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
         }
         else
         {
-            pActions.PlayerActions.Mouse1.started += NextLineButton;
+            pActions.PlayerActions.Confirm.started += NextLineButton;
             pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
             pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
 
@@ -172,11 +164,20 @@ public class DialogueManager : MonoBehaviour
                     return;
                 }
 
-                iName++;
-                jSent = 0;
-                sb.Clear();
+                if (dialogueVal.conversation[iName].bStartMinigame)
+                {
+                    Debug.Log("start minigame");
+                    MiniGameStart();
+                }
+                else
+                {
+                    iName++;
+                    jSent = 0;
+                    sb.Clear();
 
-                StartDialogue(dialogueVal);
+                    StartDialogue(dialogueVal);
+                }
+
             }
             else
             {
@@ -412,7 +413,7 @@ public class DialogueManager : MonoBehaviour
 
         StartDialogue(dialogueVal);
 
-        pActions.PlayerActions.Mouse1.started += NextLineButton;
+        pActions.PlayerActions.Confirm.started += NextLineButton;
         pActions.PlayerActions.SkipDialogue.started += SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled += SkipDialogueOff;
     }
@@ -420,13 +421,12 @@ public class DialogueManager : MonoBehaviour
     private void MiniGameStart()
     {
         dialogueCanvas.SetActive(false);
-        pActions.PlayerActions.Mouse1.started -= NextLineButton;
+        pActions.PlayerActions.Confirm.started -= NextLineButton;
         pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
         StopAllCoroutines();
 
         bSkipActive = false;
-
 
         MiniGameManager.instance.StartMiniGame(dialogueVal.conversation[iName].minigameDifficulty);
 
@@ -436,7 +436,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.instance.EnableDayCycleCanvas();
 
         dialogueCanvas.SetActive(false);
-        pActions.PlayerActions.Mouse1.started -= NextLineButton;
+        pActions.PlayerActions.Confirm.started -= NextLineButton;
         pActions.PlayerActions.SkipDialogue.started -= SkipDialogueOn;
         pActions.PlayerActions.SkipDialogue.canceled -= SkipDialogueOff;
         StopAllCoroutines();

@@ -37,7 +37,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Mouse1"",
+                    ""name"": ""Confirm"",
                     ""type"": ""Button"",
                     ""id"": ""c5fba3ca-569d-4b24-b39e-501c4340e473"",
                     ""expectedControlType"": ""Button"",
@@ -162,7 +162,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Mouse1"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7973d4b8-32e1-4489-aaff-6b44bdbd9d2f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -197,7 +208,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         // PlayerActions
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_Movement = m_PlayerActions.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerActions_Mouse1 = m_PlayerActions.FindAction("Mouse1", throwIfNotFound: true);
+        m_PlayerActions_Confirm = m_PlayerActions.FindAction("Confirm", throwIfNotFound: true);
         m_PlayerActions_SkipDialogue = m_PlayerActions.FindAction("SkipDialogue", throwIfNotFound: true);
     }
 
@@ -259,14 +270,14 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActions;
     private IPlayerActionsActions m_PlayerActionsActionsCallbackInterface;
     private readonly InputAction m_PlayerActions_Movement;
-    private readonly InputAction m_PlayerActions_Mouse1;
+    private readonly InputAction m_PlayerActions_Confirm;
     private readonly InputAction m_PlayerActions_SkipDialogue;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerActions_Movement;
-        public InputAction @Mouse1 => m_Wrapper.m_PlayerActions_Mouse1;
+        public InputAction @Confirm => m_Wrapper.m_PlayerActions_Confirm;
         public InputAction @SkipDialogue => m_Wrapper.m_PlayerActions_SkipDialogue;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
@@ -280,9 +291,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
-                @Mouse1.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMouse1;
-                @Mouse1.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMouse1;
-                @Mouse1.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMouse1;
+                @Confirm.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnConfirm;
                 @SkipDialogue.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSkipDialogue;
                 @SkipDialogue.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSkipDialogue;
                 @SkipDialogue.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSkipDialogue;
@@ -293,9 +304,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Mouse1.started += instance.OnMouse1;
-                @Mouse1.performed += instance.OnMouse1;
-                @Mouse1.canceled += instance.OnMouse1;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
                 @SkipDialogue.started += instance.OnSkipDialogue;
                 @SkipDialogue.performed += instance.OnSkipDialogue;
                 @SkipDialogue.canceled += instance.OnSkipDialogue;
@@ -315,7 +326,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public interface IPlayerActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnMouse1(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
         void OnSkipDialogue(InputAction.CallbackContext context);
     }
 }
