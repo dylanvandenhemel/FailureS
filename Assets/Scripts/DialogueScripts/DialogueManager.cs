@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject choiceButtonPrefab;
     public Transform choiceButtonGroup;
     public int currentChoicePath;
+    private int savedPathBeforeMinigame;
 
     //skip toggle
     private IEnumerator readLineCourutine;
@@ -166,6 +167,7 @@ public class DialogueManager : MonoBehaviour
 
                 if (dialogueVal.conversation[iName].bStartMinigame)
                 {
+                    savedPathBeforeMinigame = currentChoicePath;
                     Debug.Log("start minigame");
                     MiniGameStart();
                 }
@@ -198,6 +200,11 @@ public class DialogueManager : MonoBehaviour
             sb.Clear();
 
             StartDialogue(dialogueVal);
+        }
+        //dialogue after minigame dialogues
+        if(dialogueVal.conversation[iName].bEndMinigameDialogue)
+        {
+            currentChoicePath = savedPathBeforeMinigame;
         }
         
     }
@@ -444,6 +451,7 @@ public class DialogueManager : MonoBehaviour
         bSkipActive = false;
         iName = 0;
         jSent = 0;
+        currentChoicePath = 0;
 
         //tells any active script dialogue to end
         EndDialogueDelegate();

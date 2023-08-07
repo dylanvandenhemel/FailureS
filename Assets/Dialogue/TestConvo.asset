@@ -13,22 +13,6 @@ MonoBehaviour:
   m_Name: TestConvo
   m_EditorClassIdentifier: 
   conversation:
-  - charName: Succu
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - holy cow
-    bHasChoice: 0
-    choicePath: 0
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -39,14 +23,16 @@ MonoBehaviour:
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - Do I want to see naughty?
+    - Want to play minigame?
+    - You will love it!
     bHasChoice: 1
     choicePath: 0
     choices:
     - Yes
-    - no
+    - No
     bStartMinigame: 0
-    minigameDifficulty: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -57,60 +43,13 @@ MonoBehaviour:
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - yes indeed
+    - Yes ready for game
     bHasChoice: 0
     choicePath: 1
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - no way
-    bHasChoice: 0
-    choicePath: 2
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - main path
-    bHasChoice: 0
-    choicePath: 0
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - Ready for minigame
-    bHasChoice: 0
-    choicePath: 0
     choices: []
     bStartMinigame: 1
     minigameDifficulty: 1
+    bEndMinigameDialogue: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -121,97 +60,14 @@ MonoBehaviour:
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - welcome back from game
-    bHasChoice: 0
-    choicePath: 0
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - Uou got 3 games won!
-    - gg woooooo
-    bHasChoice: 0
-    choicePath: 3
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - you got 2 thats pretty good
-    bHasChoice: 0
-    choicePath: 2
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - bruh only got 1
-    - lame
-    bHasChoice: 0
-    choicePath: 1
-    choices: []
-    bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - absolute failure
-    - u bad
+    - failure
+    - bad dude
     bHasChoice: 0
     choicePath: -1
     choices: []
     bStartMinigame: 0
-    minigameDifficulty: 0
-  - charName: Succi
-    background: {fileID: 0}
-    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
-    speakerVal2: {fileID: 0}
-    currentSpeaker: 1
-    speakerPosition1: 1
-    speakerPosition2: 0
-    emotionState1: 0
-    emotionState2: 0
-    sentences:
-    - go again
-    - foooo
-    - sssss
-    bHasChoice: 0
-    choicePath: 0
-    choices: []
-    bStartMinigame: 1
     minigameDifficulty: 1
+    bEndMinigameDialogue: 0
   - charName: Succi
     background: {fileID: 0}
     speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
@@ -222,9 +78,99 @@ MonoBehaviour:
     emotionState1: 0
     emotionState2: 0
     sentences:
-    - done
+    - not too bad
+    - cool
     bHasChoice: 0
-    choicePath: 0
+    choicePath: -2
     choices: []
     bStartMinigame: 0
-    minigameDifficulty: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0
+  - charName: dudeeeeeeeeeee
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 0
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - that was awesome
+    - time for more?
+    bHasChoice: 0
+    choicePath: -2
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 1
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - amazing
+    - good work
+    bHasChoice: 0
+    choicePath: -3
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - no?
+    - awe man
+    bHasChoice: 0
+    choicePath: 2
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - we did the game
+    bHasChoice: 0
+    choicePath: 1
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0
+  - charName: Succi
+    background: {fileID: 0}
+    speakerVal1: {fileID: 11400000, guid: 19f5d1fc412d5c041b217bea01ed142c, type: 2}
+    speakerVal2: {fileID: 0}
+    currentSpeaker: 1
+    speakerPosition1: 1
+    speakerPosition2: 0
+    emotionState1: 0
+    emotionState2: 0
+    sentences:
+    - we did not do the game
+    bHasChoice: 0
+    choicePath: 2
+    choices: []
+    bStartMinigame: 0
+    minigameDifficulty: 1
+    bEndMinigameDialogue: 0

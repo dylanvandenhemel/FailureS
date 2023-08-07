@@ -30,10 +30,11 @@ public struct Dialogue
 
     [Header("Choice Information")]
     public bool bHasChoice;
-    public int choicePath;
+    [Tooltip("0: Main Path(Only skipped if sliders are maxed), 1 - 2: Alternate Dialogue Paths, -3 - -1 Scored Minigames, 4: Partner Meter Maxed, 5: Player Meter Maxed")]public int choicePath;
     public List<string> choices;
 
     [Header("For Minigame CutAway")]
-    public bool bStartMinigame;
+    [Tooltip("Check if after this dialogue finishes to start a minigame")] public bool bStartMinigame;
     [Tooltip("1 - 3")]public int minigameDifficulty;
+    [Tooltip("Check if after this dialogue finishes, return to original dialogue path")] public bool bEndMinigameDialogue;
 }

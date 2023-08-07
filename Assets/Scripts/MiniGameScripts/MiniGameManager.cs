@@ -272,6 +272,12 @@ public class MiniGameManager : MonoBehaviour
         bInSpace = false;
         //continue if max games not reached
         roundOfGames--;
+
+        if(playerSlider.value >= playerSlider.maxValue || partnerSlider.value >= partnerSlider.maxValue)
+        {
+            roundOfGames = 0;
+        }
+
         if(roundOfGames > 0)
         {
             StartMiniGame(difficultyScale);
@@ -309,18 +315,61 @@ public class MiniGameManager : MonoBehaviour
 
     IEnumerator EndGameRound(int wonGames)
     {
-        if(wonGames == 0)
+        if(wonGames <= 1)
         {
             wonGames = -1;
         }
+        else if(wonGames == 2)
+        {
+            wonGames = -2;
+        }
+        else if(wonGames == 3)
+        {
+            wonGames = -3;
+        }
+
         Debug.Log("Games Won: " + wonGames);
         yield return new WaitForSeconds(1);
 
         miniGameGroup.SetActive(false);
         DialogueManager.instance.dialogueCanvas.SetActive(true);
-        DialogueManager.instance.currentChoicePath = wonGames;
-        DialogueManager.instance.iName++;
-        DialogueManager.instance.jSent = 0;
+        StartDialogueAfterMaxSlider(wonGames);
         DialogueManager.instance.StartDialogue(DialogueManager.instance.dialogueVal);
+    }
+
+    private void StartDialogueAfterMaxSlider(int wonGames)
+    {
+        if(playerSlider.value >= playerSlider.maxValue)
+        {
+            DialogueManager.instance.currentChoicePath = 5;
+
+            for (int i = 0; i < DialogueManager.instance.dialogueVal.conversation.Count; i++)
+            {
+                if(DialogueManager.instance.dialogueVal.conversation[DialogueManager.instance.iName].choicePath != 5)
+                {
+                    DialogueManager.instance.iName++;
+                    DialogueManager.instance.jSent = 0;
+                }
+            }
+        }
+        else if(partnerSlider.value >= partnerSlider.maxValue)
+        {
+            DialogueManager.instance.currentChoicePath = 4;
+
+            for (int i = 0; i < DialogueManager.instance.dialogueVal.conversation.Count; i++)
+            {
+                if (DialogueManager.instance.dialogueVal.conversation[DialogueManager.instance.iName].choicePath != 4)
+                {
+                    DialogueManager.instance.iName++;
+                    DialogueManager.instance.jSent = 0;
+                }
+            }
+        }
+        else
+        {
+            DialogueManager.instance.currentChoicePath = wonGames;
+            DialogueManager.instance.iName++;
+            DialogueManager.instance.jSent = 0;
+        }
     }
 }
